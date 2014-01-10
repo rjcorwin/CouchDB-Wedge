@@ -26,7 +26,7 @@ request.get({uri: program.source + '/_all_dbs', json: true}, function(error, res
     }
     cmd += 'curl -XPOST -H "Content-Type: application/json" http://' + program.source + '/_replicate -d \'' + JSON.stringify(doc) + '\'; \n'
   })
+  console.log(cmd)
+  exec(cmd, puts)
 })
 
-console.log(cmd)
-exec(cmd, puts)
