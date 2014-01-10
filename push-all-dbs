@@ -14,6 +14,8 @@ program
   .option('-t, --target [target]', '', '')
   .option('-s, --source [source]', '', '')
   .parse(process.argv);
+  
+var cmd = ''
 
 request.get({uri: program.source + '/_all_dbs', json: true}, function(error, response, body) {
   body.forEach(function(db) {
