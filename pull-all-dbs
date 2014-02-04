@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+var sys = require('sys')
+var exec = require('child_process').exec;
+var _ = require('underscore')
+var request = require('request')
+var program = require('commander');
+var fs = require('fs')
+var replicatorInstaller = require('./includes/replicator-installer')
+function puts(error, stdout, stderr) { sys.puts(stdout) } 
+
+program
+  .version('0.0.1')
+  .option('-t, --target [target]', '', '')
+  .option('-s, --source [source]', '', '')
+  .parse(process.argv);
+  
+var cmd = ''
+
+request.get({uri: program.source + '/_all_dbs', json: true}, function(error, response, body) {
+  body.forEach(function(db) {
+    var doc = {
+      "create_target":true, 
+      "source": program.source + '/' + db, 
+      "target": program.target + '/' + db
+    }
+    cmd += 'curl -XPOST -H "Content-Type: application/json" ' + program.target + '/_replicate -d \'' + JSON.stringify(doc) + '\'; \n'
+  })
+  console.log(cmd)
+  exec(cmd, puts)
+})
+
