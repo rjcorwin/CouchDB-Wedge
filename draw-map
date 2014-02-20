@@ -33,58 +33,55 @@ var replicationMap
 csv()
 .from.path( mapfile, { delimiter: ',', escape: '"' })
 .to.array( function(data){
+
   replicationMap = data
 
-console.log(replicationMap)
+  console.log(replicationMap)
 
-var i = 0
-var hosts = []
-replicatorDocs = []
-cmd = ''
+  var i = 0
+  var hosts = []
+  replicatorDocs = []
+  cmd = ''
 
-replicationMap.forEach(function(row) {
-  if(i == 0) {
-    hosts[0] = (row[0] == '') 
-      ? ''
-      : 'http://' + row[0] + '/'
-    hosts[1] = (row[2] == '') 
-      ? ''
-      : 'http://' + row[2] + '/'
-    i++
-  }
-  else {
-    if (row[1].search('<') != -1) {
-      var db = row[0]
-      replicatorDocs.push({
-        source: hosts[1] + db, 
-        target: hosts[0] + db,
-        create_target: create_target,
-        continuous: continuous,
-        cancel: cancel
-      })
+  replicationMap.forEach(function(row) {
+    if(i == 0) {
+      hosts[0] = (row[0] == '') 
+        ? ''
+        : row[0] + '/'
+      hosts[1] = (row[2] == '') 
+        ? ''
+        : row[2] + '/'
+      i++
     }
-    if (row[1].search('>') != -1) {
-      var db = row[0]
-      replicatorDocs.push({
-        source: hosts[0] + db, 
-        target: hosts[1] + db,
-        create_target: create_target,
-        continuous: continuous,
-        cancel: cancel
-      })
+    else {
+      if (row[1].search('<') != -1) {
+        var db = row[0]
+        replicatorDocs.push({
+          source: hosts[1] + db, 
+          target: hosts[0] + db,
+          create_target: create_target,
+          continuous: continuous,
+          cancel: cancel
+        })
+      }
+      if (row[1].search('>') != -1) {
+        var db = row[0]
+        replicatorDocs.push({
+          source: hosts[0] + db, 
+          target: hosts[1] + db,
+          create_target: create_target,
+          continuous: continuous,
+          cancel: cancel
+        })
+      }
     }
-  }
-})
+  })
 
-replicatorDocs.forEach(function(doc) {
-  cmd += 'curl -XPOST ' + to + ' -H "Content-Type: application/json" -d \'' + JSON.stringify(doc) + '\' ; \n' 
-}) 
+  replicatorDocs.forEach(function(doc) {
+    cmd += 'curl -XPOST ' + to + ' -H "Content-Type: application/json" -d \'' + JSON.stringify(doc) + '\' ; \n' 
+  }) 
 
-console.log(cmd)
-exec(cmd, puts)
-        
-
-
-
+  console.log(cmd)
+  exec(cmd, puts)
 
 } );
