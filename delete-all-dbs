@@ -19,20 +19,21 @@ exec('ulimit -n 10056', puts)
 
 program
   .version('0.0.1')
-  .option('-c, --couchurl [couchurl]', '', '')
-  .option('-a, --deletealldatabases', '', null)
+  .option('-u, --url [url]', '', '')
   .parse(process.argv);
 
-var nano = require('nano')(program.couchurl)
+var nano = require('nano')(program.url)
 
-var skip = ['_users', '_replicator']
+var skip = ['_users', '_replicator', 'resources']
 
 var cmd = ''
 
 nano.db.list(function(err, body) {
+  if (err) return console.log(err)
+  console.log(body)
   body.forEach(function(db) {
     if (_.contains(skip, db) != true) {
-      cmd += 'curl -XDELETE ' + program.couchurl + '/' + db + ' \n'
+      cmd += 'curl -XDELETE ' + program.url + '/' + db + ' \n'
     }
   });
   console.log(cmd)
