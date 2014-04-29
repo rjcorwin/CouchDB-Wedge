@@ -15,18 +15,35 @@ program
   .option('-s, --source [source]', '', '')
   .parse(process.argv);
   
-var cmd = ''
+var cmd = []
 
 request.get({uri: program.source + '/_all_dbs', json: true}, function(error, response, body) {
+  
+  // Create the commands
   body.forEach(function(db) {
     var doc = {
       "create_target":true, 
       "source": program.source + '/' + db, 
       "target": program.target + '/' + db
     }
-    cmd += 'curl -XPOST -H "Content-Type: application/json" ' + program.target + '/_replicate -d \'' + JSON.stringify(doc) + '\'; \n'
+    cmd.push('curl -XPOST -H "Content-Type: application/json" ' + program.target + '/_replicate -d \'' + JSON.stringify(doc) + '\'; \n')
   })
-  console.log(cmd)
-  exec(cmd, puts)
+
+  // Run the commands
+  var i = 0
+  function go() {
+    if(i !== cmd.length) {
+      console.log(cmd[i])
+      exec(cmd[i], function(error, stdout, stderr) {
+        console.log(error)
+        console.log(stdout)
+        console.log(stderr)
+        i++
+        go()
+      })
+    }
+  }
+  go()
+
 })
 
