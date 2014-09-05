@@ -17,16 +17,20 @@ program
   
 var cmd = []
 
+var exclude = ['']
+
 request.get({uri: program.source + '/_all_dbs', json: true}, function(error, response, body) {
   
   // Create the commands
   body.forEach(function(db) {
-    var doc = {
-      "create_target":true, 
-      "source": program.source + '/' + db, 
-      "target": program.target + '/' + db
+    if (exclude.indexOf(db) == -1) {
+      var doc = {
+        "create_target":true, 
+        "source": program.source + '/' + db, 
+        "target": program.target + '/' + db
+      }
+      cmd.push('curl -XPOST -H "Content-Type: application/json" ' + program.target + '/_replicate -d \'' + JSON.stringify(doc) + '\'; \n')
     }
-    cmd.push('curl -XPOST -H "Content-Type: application/json" ' + program.target + '/_replicate -d \'' + JSON.stringify(doc) + '\'; \n')
   })
 
   // Run the commands
