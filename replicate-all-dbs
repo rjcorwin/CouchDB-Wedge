@@ -38,5 +38,5 @@ request.get({uri: program.source + '/_all_dbs', json: true}, function(error, res
     }
   })
   console.log(cmd)
-  //exec(cmd, puts)
+  exec(cmd, puts)
 })

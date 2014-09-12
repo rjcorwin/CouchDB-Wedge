@@ -1,42 +1,34 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
 var sys = require('sys')
 var exec = require('child_process').exec;
 var _ = require('underscore')
 var request = require('request')
 var program = require('commander');
-var fs = require('fs')
-var replicatorInstaller = require('./includes/replicator-installer')
 function puts(error, stdout, stderr) { sys.puts(stdout) } 
-
-// Increase the ulimit so the entire directory of attachments can be uploaded
-exec('launchctl limit maxfiles 10056 10056', puts)
-exec('ulimit -n 10056', puts)
 
 program
   .version('0.0.1')
-  .option('-u, --url [url]', '', '')
+  .option('-t, --target [target]', 'Server that you wish to delete al dbs from', '')
+  .option('-w, --exclude [exclude]', 'A comma seperated list of databases to exclude', '')
   .parse(process.argv);
 
-var nano = require('nano')(program.url)
-
-var skip = ['_users', '_replicator', 'resources']
-
+if (program.exclude) {
+  program.exclude = program.exclude.split(',')
+}
+else {
+  program.exclude = []
+}
+  
 var cmd = ''
 
-nano.db.list(function(err, body) {
-  if (err) return console.log(err)
-  console.log(body)
+request.get({uri: program.target + '/_all_dbs', json: true}, function(error, response, body) {
+  if(error) return console.log(error)
   body.forEach(function(db) {
-    if (_.contains(skip, db) != true) {
-      cmd += 'curl -XDELETE ' + program.url + '/' + db + ' \n'
+    if (program.exclude.indexOf(db) == -1) {
+      cmd += 'curl -XDELETE ' + program.target + '/' + db + ' \n'
     }
-  });
+  })
   console.log(cmd)
   exec(cmd, puts)
 })
-

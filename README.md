@@ -10,5 +10,5 @@ Node scripts for doing bulk operations like deleting all databases on a server o
 
 ## Example of deleting all databases on a server except for _replicator and _users
 ```
-./delete-all-dbs --server http://username:password@server.example.com --exclue _replicator,_users
+./delete-all-dbs --target http://username:password@server.example.com --exclude _replicator,_users
 ```
