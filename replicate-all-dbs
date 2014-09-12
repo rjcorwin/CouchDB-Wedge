@@ -5,32 +5,38 @@ var exec = require('child_process').exec;
 var _ = require('underscore')
 var request = require('request')
 var program = require('commander');
-var fs = require('fs')
-var replicatorInstaller = require('./includes/replicator-installer')
 function puts(error, stdout, stderr) { sys.puts(stdout) } 
 
 program
   .version('0.0.1')
   .option('-t, --target [target]', '', '')
   .option('-s, --source [source]', '', '')
+  .option('-w, --worker [worker]', '', '')
+  .option('-w, --exclude [exclude]', 'A comma seperated list of databases to exclude', '')
   .parse(process.argv);
+
+if (program.exclude) {
+  program.exclude = program.exclude.split(',')
+}
+else {
+  program.exclude = []
+}
   
 var cmd = ''
 
-//var exclude = ['resources', 'apps']
-var exclude = []
+console.log(program.source)
 request.get({uri: program.source + '/_all_dbs', json: true}, function(error, response, body) {
+  if(error) return console.log(error)
   body.forEach(function(db) {
-    if (exclude.indexOf(db) == -1) {
+    if (program.exclude.indexOf(db) == -1) {
       var doc = {
         "create_target":true, 
         "source": program.source + '/' + db, 
         "target": program.target + '/' + db
       }
-      cmd += 'curl -XPOST -H "Content-Type: application/json" ' + program.source + '/_replicate -d \'' + JSON.stringify(doc) + '\' & \n'
+      cmd += 'curl -XPOST -H "Content-Type: application/json" ' + program.worker + '/_replicator -d \'' + JSON.stringify(doc) + '\' & \n'
     }
   })
   console.log(cmd)
-  exec(cmd, puts)
+  //exec(cmd, puts)
 })
-
