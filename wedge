@@ -9,6 +9,8 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 
 program
   .version('0.0.1')
+  .option('-d, --delete [delete]', 'Delete all databases of target server')
+  .option('-r, --replicate [replicate]', 'Replicate all databases from source to target')
   .option('-t, --target [target]', '', '')
   .option('-s, --source [source]', '', '')
   .option('-w, --worker [worker]', '', '')
@@ -24,19 +26,27 @@ else {
   
 var cmd = ''
 
-console.log(program.source)
 request.get({uri: program.source + '/_all_dbs', json: true}, function(error, response, body) {
   if(error) return console.log(error)
   body.forEach(function(db) {
-    if (program.exclude.indexOf(db) == -1) {
-      var doc = {
-        "create_target":true, 
-        "source": program.source + '/' + db, 
-        "target": program.target + '/' + db
+    if (program.replicate) {
+      if (program.exclude.indexOf(db) == -1) {
+        var doc = {
+          "create_target":true, 
+          "source": program.source + '/' + db, 
+          "target": program.target + '/' + db
+        }
+        cmd += 'curl -XPOST -H "Content-Type: application/json" ' + program.worker + '/_replicator -d \'' + JSON.stringify(doc) + '\' & \n'
       }
-      cmd += 'curl -XPOST -H "Content-Type: application/json" ' + program.worker + '/_replicator -d \'' + JSON.stringify(doc) + '\' & \n'
+    }
+    if (program.delete) {
+      body.forEach(function(db) {
+        if (program.exclude.indexOf(db) == -1) {
+          cmd += 'curl -XDELETE ' + program.target + '/' + db + ' \n'
+        }
+      })
     }
   })
   console.log(cmd)
-  exec(cmd, puts)
+  //exec(cmd, puts)
 })
