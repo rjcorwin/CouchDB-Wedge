@@ -9,11 +9,11 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 
 program
   .version('0.0.1')
-  .option('-d, --delete [delete]', 'Delete all databases of target server')
-  .option('-r, --replicate [replicate]', 'Replicate all databases from source to target')
-  .option('-t, --target [target]', '', '')
-  .option('-s, --source [source]', '', '')
-  .option('-w, --worker [worker]', '', '')
+  .option('-d, --delete', 'Delete all databases, use the source parameter to define which server')
+  .option('-r, --replicate', 'Replicate all databases from source to target')
+  .option('-t, --target [target]', 'Target server', '')
+  .option('-s, --source [source]', 'Source server', '')
+  .option('-w, --worker [worker]', 'The Worker server that will manage a replication', '')
   .option('-w, --exclude [exclude]', 'A comma seperated list of databases to exclude', '')
   .parse(process.argv);
 
@@ -40,13 +40,11 @@ request.get({uri: program.source + '/_all_dbs', json: true}, function(error, res
       }
     }
     if (program.delete) {
-      body.forEach(function(db) {
-        if (program.exclude.indexOf(db) == -1) {
-          cmd += 'curl -XDELETE ' + program.target + '/' + db + ' \n'
-        }
-      })
+      if (program.exclude.indexOf(db) == -1) {
+        cmd += 'curl -XDELETE ' + program.source + '/' + db + ' \n'
+      }
     }
   })
   console.log(cmd)
-  //exec(cmd, puts)
+  exec(cmd, puts)
 })
