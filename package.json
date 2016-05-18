@@ -1,14 +1,20 @@
 {
   "name": "CouchDB-Wedge",
-  "description": "",
-  "version": "0.0.1",
-  "private": true,
+  "description": "CLI and node modules for doing bulk operations like deleting all databases on a server or replicating all databases from one server to another.",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rjsteinert/couchdb-wedge"
+  },
+  "bin": {
+    "wedge": "./wedge.js"
+  },
   "dependencies": {
+    "commander": "^2.9.0",
     "couchapp": ">= 0.10.0",
-    "underscore": ">= 1.5.2",
-    "request": ">= 2.27.0",
+    "csv": "0.3.6",
     "nano": "4.4.0",
-    "commander": "2.0.0", 
-    "csv": "0.3.6"
+    "request": ">= 2.27.0",
+    "underscore": ">= 1.5.2"
   }
 }
