@@ -10,14 +10,14 @@ program
   .option('-t, --target <target>', 'Target server', '')
   .option('-s, --source <source>', 'Source server', '')
   .option('-w, --worker <worker>', 'The Worker server that will manage a replication', '')
-  .option('-w, --exclude <exclude>', 'A comma seperated list of databases to exclude', '')
+  .option('-x, --exclude <exclude>', 'A comma seperated list of databases to exclude', '')
   .option('--verbose', 'Verbose mode')
 
 program.on('--help', function(){
-  console.log('  Examples:')
-  console.log('')
-  console.log('    $ wedge replicate-all-dbs --source http://username:password@source-server.com:5984 --target http://username:password@target-server.org')
-  console.log('')
+  process.stdout.write('  Examples:')
+  process.stdout.write('')
+  process.stdout.write('    $ wedge replicate-all-dbs --source http://username:password@source-server.com:5984 --target http://username:password@target-server.org')
+  process.stdout.write('')
 });
 
 program.parse(process.argv);
@@ -35,12 +35,12 @@ if (!program.worker) {
 
 replicateAllDbs(program, function(err, res) {
   if(err) {
-    console.log(err)
-    console.log(res)
+    process.stderr.write(err)
+    process.stderr.write(res)
     process.exit(1)
   }
   else {
-    console.log(res)
+    process.stdout.write(res)
     process.exit(0)
   }   
 })

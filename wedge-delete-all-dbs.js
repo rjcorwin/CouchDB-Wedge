@@ -12,10 +12,10 @@ program
   .option('--verbose', 'Verbose mode')
 
 program.on('--help', function(){
-  console.log('  Examples:')
-  console.log('')
-  console.log('    $ wedge delete-all-dbs --target http://username:password@source-server.com:5984')
-  console.log('')
+  process.stdout.write('  Examples:')
+  process.stdout.write('')
+  process.stdout.write('    $ wedge delete-all-dbs --target http://username:password@source-server.com:5984')
+  process.stdout.write('')
 });
 
 program.parse(process.argv);
@@ -29,12 +29,12 @@ else {
 
 deleteAllDbs(program, function(err, res) {
   if(err) {
-    console.log(err)
-    console.log(res)
+    process.stderr.write(err)
+    process.stderr.write(res)
     process.exit(1)
   }
   else {
-    console.log(res)
+    process.stdout.write((res)
     process.exit(0)
   }   
 })
