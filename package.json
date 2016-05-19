@@ -14,6 +14,7 @@
     "couchapp": ">= 0.10.0",
     "csv": "0.3.6",
     "nano": "4.4.0",
+    "promptly": "^1.1.0",
     "request": ">= 2.27.0",
     "underscore": ">= 1.5.2"
   }

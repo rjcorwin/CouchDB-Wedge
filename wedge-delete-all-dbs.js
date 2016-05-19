@@ -8,7 +8,7 @@ function puts(error, stdout, stderr) { sys.puts(stdout); sys.puts(stderr); sys.p
 program
   .version('0.0.0')
   .option('-t, --target <target>', 'Target server', '')
-  .option('-w, --exclude <exclude>', 'A comma seperated list of databases to exclude', '')
+  .option('-x, --exclude <exclude>', 'A comma seperated list of databases to exclude', '')
   .option('--verbose', 'Verbose mode')
 
 program.on('--help', function(){
@@ -34,7 +34,7 @@ deleteAllDbs(program, function(err, res) {
     process.exit(1)
   }
   else {
-    process.stdout.write((res)
+    process.stdout.write(res)
     process.exit(0)
   }   
 })

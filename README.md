@@ -15,14 +15,18 @@ wedge replicate-all-dbs --worker https://username:password@serverb.cloudant.com 
 
 ## Example of deleting all databases on a server except for _replicator and _users
 ```
-wedge delete-all-dbs --source http://username:password@server.example.com --exclude _replicator,_users
+wedge delete-all-dbs --target http://username:password@server.example.com --exclude _replicator,_users
 ```
+
+This command has a prompt asking the user to confirm the action.
 
 ## Example of pre-warming CouchDB view cache, which forces generation of index for all databases on the couch server.
 
 ````
 wedge pre-warm-views --target http://username:password@target-server.org
 ````
+
+This command has a prompt asking the user to confirm the action.
 
 ## Develop
 
