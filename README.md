@@ -3,7 +3,7 @@ CLI and node module for doing bulk operations like deleting all databases on a s
 
 ## Install
 ```
-npm install -g couchdb-wedge
+npm install -g CouchDB-Wedge
 ```
 
 
@@ -18,6 +18,11 @@ wedge replicate-all-dbs --worker https://username:password@serverb.cloudant.com 
 wedge delete-all-dbs --source http://username:password@server.example.com --exclude _replicator,_users
 ```
 
+## Example of pre-warming CouchDB view cache, which forces generation of index for all databases on the couch server.
+
+````
+wedge pre-warm-views --target http://username:password@target-server.org
+````
 
 ## Develop
 
