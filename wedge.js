@@ -6,4 +6,5 @@ program
   .command('replicate-all-dbs', 'replicate all databases from one couchdb to another')
   .command('delete-all-dbs', 'delete all databases on a couchdb')
   .command('pre-warm-views', 'Hit all views in a couchdb to pre-warm them')
+  .command('pull-json', 'Pull documents from a View in CouchDB returning just an array of the documents, not additional metadata that CouchDB usually does.')
   .parse(process.argv);
