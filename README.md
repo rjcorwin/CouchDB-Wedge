@@ -3,7 +3,7 @@ CLI and node module for doing bulk operations like deleting all databases on a s
 
 ## Install
 ```
-npm install -g CouchDB-Wedge
+npm install -g couchdb-wedge
 ```
 
 
