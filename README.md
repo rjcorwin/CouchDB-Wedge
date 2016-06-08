@@ -6,6 +6,28 @@ CLI and node module for doing bulk operations like deleting all databases on a s
 npm install -g couchdb-wedge
 ```
 
+Wedge is a command that consists of many other sub-commands, see below.
+```
+ λ wedge --help
+
+  Usage: wedge [options] [command]
+
+
+  Commands:
+
+    replicate-all-dbs   replicate all databases from one couchdb to another
+    delete-all-dbs      delete all databases on a couchdb
+    pre-warm-views      Hit all views in a couchdb to pre-warm them
+    pull-json           Pull documents from a View in CouchDB returning just an array of the documents, not additional metadata that CouchDB usually does.
+    push-json           Push an array of documents to a CouchDB database. Accepts STDIN over a pipe.
+    help [cmd]          display help for [cmd]
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+```
+
 
 ## Example of a pull replication of all databases except for _replicator and resources
 ```
