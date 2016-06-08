@@ -22,7 +22,7 @@ program.parse(process.argv);
 
 if (program.file) {
 
-  program.json = fs.readFileSync(program.file)
+  program.json = fs.readFileSync(program.file, 'utf8')
   pushJson(program, function(err, res) {
     if(err) {
       process.stderr.write(err)
