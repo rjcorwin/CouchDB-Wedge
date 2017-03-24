@@ -22,7 +22,7 @@ program.parse(process.argv);
 
 if (program.file) {
 
-  program.json = fs.readFileSync(program.file, 'utf8')
+  program.json = JSON.parse(fs.readFileSync(program.file, 'utf8'))
   pushJson(program, function(err, res) {
     if(err) {
       process.stderr.write(err)
@@ -30,7 +30,7 @@ if (program.file) {
       process.exit(1)
     }
     else {
-      process.stdout.write(res)
+      process.stdout.write(JSON.stringify(res))
       process.exit(0)
     }   
   })
@@ -51,6 +51,7 @@ else {
 
   stdin.on('end', function () {
     program.json = inputChunks.join()
+    program.json = JSON.parse(program.json)
     pushJson(program, function(err, res) {
       if(err) {
         process.stderr.write(err)
@@ -58,7 +59,7 @@ else {
         process.exit(1)
       }
       else {
-        process.stdout.write(res)
+        process.stdout.write(JSON.stringify(res))
         process.exit(0)
       }   
     })
