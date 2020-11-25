@@ -10,6 +10,7 @@
     "wedge": "./wedge.js"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "commander": "^2.9.0",
     "couchapp": ">= 0.10.0",
     "csv": "0.3.6",
