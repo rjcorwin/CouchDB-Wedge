@@ -1,7 +1,7 @@
 {
   "name": "couchdb-wedge",
   "description": "CLI and node modules for doing bulk operations like deleting all databases on a server or replicating all databases from one server to another.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/rjsteinert/couchdb-wedge"
