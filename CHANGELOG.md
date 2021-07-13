@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.2.0
+- Add a subscribe command for performing actions on a databases' changes feed
+
 ## v1.1.0
 - Add `restore-deleted-doc` command.
 
