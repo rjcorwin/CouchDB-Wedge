@@ -1,0 +1,13 @@
+{
+  "tally": 4,
+  "processed": 0,
+  "startTime": "2021-07-13T18:09:42.619Z",
+  "endTime": "2021-07-13T18:09:42.736Z",
+  "batchSize": 100,
+  "url": "http://admin:WN6px7fX8gG53CfV@localhost:5984/test",
+  "actionPath": "/Users/rcorwin/Git/www.github.com/rjsteinert/CouchDB-Wedge/docs/subscribe-example/action.js",
+  "statePath": "/Users/rcorwin/Git/www.github.com/rjsteinert/CouchDB-Wedge/docs/subscribe-example/state.json",
+  "delayBetweenBatches": 0,
+  "delayWhenNothingToProcess": 60000,
+  "sequence": "51-g1AAAAHXeJyNjkEKwkAMRYMV1IV7wYUeoS1apit7E500I7XUmYW61pvoTfQmepMx7QhSoTKbBMJ_L78CgGEREIy10YZUpk1hDseKzz0JOLPWlkUgYc-HQUqpEsuYYHTSpLY7ragDxTlPXLXpCEWcpD50VtPrDz1taBQCozD5zXcZNrXh3Pqfp0i48Gmv-zzhwosF19owaQwkE8kCzw7OcnOWeynhb-7hcs9v3zDPQ4rQu-_LGSx_Kt9H4JA0"
+}

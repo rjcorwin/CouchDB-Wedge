@@ -14,9 +14,12 @@
     "commander": "^2.9.0",
     "couchapp": ">= 0.10.0",
     "csv": "0.3.6",
+    "fs-extra": "^10.0.0",
     "nano": "4.4.0",
+    "pouchdb": "^7.2.2",
     "promptly": "^1.1.0",
     "request": ">= 2.27.0",
+    "tangy-log": "^1.0.0",
     "underscore": ">= 1.5.2",
     "unirest": "^0.5.0"
   }

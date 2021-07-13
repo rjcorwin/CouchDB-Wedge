@@ -10,4 +10,5 @@ program
   .command('pull-json', 'Pull documents from a View in CouchDB returning just an array of the documents, not additional metadata that CouchDB usually does.')
   .command('push-json', 'Push an array of documents to a CouchDB database. Accepts STDIN over a pipe.')
   .command('doc-history', 'Revs with docs attached')
+  .command('subscribe', 'Subscribe to the changes feed of a database and act on it.')
   .parse(process.argv);
