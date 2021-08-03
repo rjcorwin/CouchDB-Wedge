@@ -10,7 +10,7 @@ Wedge is a command that consists of many other sub-commands, see below.
 ```
  λ wedge --help
 
-  Usage: wedge [options] [command]
+  Usage: wedge <command> [...options]
 
 
   Commands:
